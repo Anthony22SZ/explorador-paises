@@ -1,0 +1,32 @@
+<div class="lista-paises-contenedor">
+  @for (pais of paises; track (pais.codes?.alpha_2 || pais.nombre)) {
+    
+    <div class="fila-pais" style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+      
+      <div class="bandera-img-contenedor" style="margin-right: 15px; display: flex; align-items: center;">
+        <img 
+          [src]="pais.flag?.url_png" 
+          [alt]="'Bandera de ' + pais.nombre"
+          style="width: 55px; height: 35px; object-fit: cover; border-radius: 4px; border: 1px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.08);"
+        />
+      </div>
+
+      <div class="informacion-pais" style="display: flex; flex-direction: column; flex-grow: 1;">
+        <span class="nombre-comun" style="font-weight: bold; font-size: 1.1rem;">
+          {{ pais.nombre }}
+        </span>
+        <span class="region-badge" style="font-size: 0.85rem; color: #666;">
+          {{ pais.region || 'Geografía' }}
+        </span>
+      </div>
+
+      <app-acciones-pais [pais]="pais"></app-acciones-pais>
+
+    </div>
+
+  } @empty {
+    <div class="sin-resultados" style="padding: 20px; text-align: center; color: #888;">
+      <p>No se encontraron países con ese nombre.</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,155 @@
+.pagina {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.btn-volver {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 25px;
+  transition: background 0.2s;
+}
+
+.btn-volver:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.cargando {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255,255,255,0.5);
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.tarjeta {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.bandera {
+  width: 100px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nombre-pais {
+  color: white;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.nombre-oficial {
+  color: rgba(255,255,255,0.5);
+  margin: 5px 0 0 0;
+  font-style: italic;
+}
+
+.divisor {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+}
+
+.grid-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.info-card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.info-label {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.info-valor {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 6px 0 0 0;
+}
+
+.color-card {
+  grid-column: span 2;
+}
+
+.color-muestra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.color-bloque {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.color-hex {
+  font-family: monospace;
+  font-weight: bold;
+  color: white;
+}
+
+.descripcion-bandera {
+  background: rgba(255,255,255,0.03);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.descripcion-texto {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 8px 0 0 0;
+}
+
+@media (max-width: 500px) {
+  .nombre-pais {
+    font-size: 1.5rem;
+  }
+
+  .color-card {
+    grid-column: span 1;
+  }
+}

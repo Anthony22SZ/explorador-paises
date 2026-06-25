@@ -1,0 +1,66 @@
+<div class="pagina">
+
+  <button routerLink="/" class="btn-volver">
+    ⬅️ Volver al Buscador
+  </button>
+
+ @if (cargando()) {
+  <div class="cargando">
+    <div class="spinner"></div>
+    <p>Obteniendo clima...</p>
+  </div>
+}
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  @if (datosPais() && datosClima()) {
+    <div class="tarjeta">
+
+      <div class="encabezado">
+        <img
+          [src]="datosPais().flag?.url_png"
+          [alt]="datosPais().names?.translations?.spa?.common"
+          class="bandera"
+        />
+        <div>
+          <h1 class="nombre-pais">
+            {{ datosPais().names?.translations?.spa?.common }} {{ datosPais().flag?.emoji }}
+          </h1>
+          <p class="subtitulo">Condiciones climáticas actuales</p>
+        </div>
+      </div>
+
+      <hr class="divisor">
+
+      <div class="grid-clima">
+
+        <div class="clima-card temperatura">
+          <span class="clima-label">🌡️ Temperatura</span>
+          <p class="clima-valor">{{ datosClima().temperature_2m }}°C</p>
+        </div>
+
+        <div class="clima-card viento">
+          <span class="clima-label">💨 Viento</span>
+          <p class="clima-valor">{{ datosClima().wind_speed_10m }} km/h</p>
+        </div>
+
+        <div class="clima-card precipitacion">
+          <span class="clima-label">🌧️ Precipitación</span>
+          <p class="clima-valor">{{ datosClima().precipitation }} mm</p>
+        </div>
+
+        <div class="clima-card coordenadas">
+          <span class="clima-label">📍 Coordenadas</span>
+          <p class="clima-valor coordenadas-valor">
+            {{ datosPais().coordinates?.lat }}°, {{ datosPais().coordinates?.lng }}°
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  }
+
+</div>

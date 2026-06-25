@@ -1,0 +1,2 @@
+GET https://api.restcountries.com/countries/v5?q=canada&pretty=1 \
+    Authorization: Bearer rc_live_832181d43b0140d6be7cc3069e0c554c 

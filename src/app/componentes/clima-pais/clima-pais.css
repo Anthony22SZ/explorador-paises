@@ -1,0 +1,162 @@
+.pagina {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.btn-volver {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 25px;
+  transition: background 0.2s;
+}
+
+.btn-volver:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.cargando {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top: 4px solid #74b9ff;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.tarjeta {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.bandera {
+  width: 100px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.nombre-pais {
+  color: white;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitulo {
+  color: rgba(255,255,255,0.5);
+  margin: 5px 0 0 0;
+  font-style: italic;
+}
+
+.divisor {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 20px;
+}
+
+.grid-clima {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.clima-card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.2s;
+}
+
+.clima-card:hover {
+  transform: translateY(-3px);
+}
+
+.clima-label {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.clima-valor {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.temperatura .clima-valor {
+  color: #ff6b6b;
+}
+
+.viento .clima-valor {
+  color: #74b9ff;
+}
+
+.precipitacion .clima-valor {
+  color: #81ecec;
+}
+
+.coordenadas-valor {
+  font-size: 1.1rem !important;
+  color: rgba(255,255,255,0.8) !important;
+}
+
+@media (max-width: 500px) {
+  .nombre-pais {
+    font-size: 1.5rem;
+  }
+
+  .grid-clima {
+    grid-template-columns: 1fr;
+  }
+
+  .clima-valor {
+    font-size: 1.8rem;
+  }
+}

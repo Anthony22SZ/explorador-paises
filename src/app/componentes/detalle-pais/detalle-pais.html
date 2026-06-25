@@ -1,0 +1,73 @@
+<div class="pagina">
+
+  <button routerLink="/" class="btn-volver">
+    ⬅️ Volver al Buscador
+  </button>
+
+  @if (cargando()) {
+    <div class="cargando">
+      <p>Cargando información...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  @if (datosPais(); as pais) {
+    <div class="tarjeta">
+
+      <div class="encabezado">
+        <img
+          [src]="pais.flag?.url_png"
+          [alt]="pais.names?.translations?.spa?.common"
+          class="bandera"
+        />
+        <div>
+          <h1 class="nombre-pais">
+            {{ pais.names?.translations?.spa?.common }} {{ pais.flag?.emoji }}
+          </h1>
+          <p class="nombre-oficial">{{ pais.names?.translations?.spa?.official }}</p>
+        </div>
+      </div>
+
+      <hr class="divisor">
+
+      <div class="grid-info">
+
+        <div class="info-card">
+          <span class="info-label">🌍 Región</span>
+          <p class="info-valor">{{ pais.region }}</p>
+        </div>
+
+        <div class="info-card">
+          <span class="info-label">🔑 Código Alpha-2</span>
+          <p class="info-valor">{{ pais.codes?.alpha_2 }}</p>
+        </div>
+
+        <div class="info-card">
+          <span class="info-label">🔤 Código Alpha-3</span>
+          <p class="info-valor">{{ pais.codes?.alpha_3 }}</p>
+        </div>
+
+        <div class="info-card color-card">
+          <span class="info-label">🎨 Color Dominante</span>
+          <div class="color-muestra">
+            <div class="color-bloque" [style.background]="pais.flag?.colors?.dominant"></div>
+            <span class="color-hex">{{ pais.flag?.colors?.dominant }}</span>
+          </div>
+        </div>
+
+      </div>
+
+      @if (pais.flag?.description) {
+        <div class="descripcion-bandera">
+          <span class="info-label">📜 Descripción de la Bandera</span>
+          <p class="descripcion-texto">{{ pais.flag?.description }}</p>
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

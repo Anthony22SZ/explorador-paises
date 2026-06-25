@@ -1,0 +1,54 @@
+<div class="contenedor-principal">
+  
+  <header class="barra-busqueda">
+    <input 
+      type="text" 
+      placeholder="Escribe el nombre de un país..." 
+      (input)="alBuscar($event)"
+      class="input-buscar"
+    />
+  </header>
+
+  <main class="contenido-paises">
+    @if (paisesEncontrados().length > 0) {
+      <app-listas-paises 
+        [paises]="paisesEncontrados()"
+        (alSeleccionarPais)="seleccionarPais($event)">
+      </app-listas-paises>
+    } @else {
+      <div class="mensaje-bienvenida">
+        <p>Escribe el nombre de un país para comenzar la búsqueda...</p>
+      </div>
+    }
+  </main>
+
+  @if (paisSeleccionado()) {
+    <footer class="footer-fijo">
+      <div class="footer-encabezado">
+        <div class="info-pais">
+          
+          @if (paisSeleccionado().flag?.emoji) {
+            <span class="mini-bandera-emoji" style="font-size: 2rem; margin-right: 12px; line-height: 1;">
+              {{ paisSeleccionado().flag?.emoji }}
+            </span>
+          } @else {
+            <span class="mini-bandera-emoji" style="font-size: 2rem; margin-right: 12px; line-height: 1;">🏳️</span>
+          }
+
+          <h3>
+            {{ paisSeleccionado().nombre }}
+          </h3>
+        </div>
+        
+        <div class="botones-accion">
+          <a class="btn btn-clima" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'clima']">Clima</a>
+          <a class="btn btn-detalles" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'detalle']">Detalle</a>
+        </div>
+      </div>
+
+      <div class="footer-cuerpo">
+        <router-outlet></router-outlet>
+      </div>
+    </footer>
+  }
+</div>
