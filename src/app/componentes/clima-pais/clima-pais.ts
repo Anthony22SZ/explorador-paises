@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ClimaService } from '../../servicios/clima';
+import { BotonAccionComponent } from '../boton-accion/boton-accion';
 
 @Component({
   selector: 'app-clima-pais',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, BotonAccionComponent],
   templateUrl: './clima-pais.html',
   styleUrl: './clima-pais.css'
 })

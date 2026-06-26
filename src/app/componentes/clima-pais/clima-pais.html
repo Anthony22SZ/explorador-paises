@@ -34,6 +34,14 @@
 
       <hr class="divisor">
 
+      <div class="boton-navegacion">
+  <app-boton-accion
+    [ruta]="['/pais', datosPais().codes?.alpha_2, 'detalle']"
+    texto="Ver Detalle 🌍"
+    color="azul">
+  </app-boton-accion>
+</div>
+
       <div class="grid-clima">
 
         <div class="clima-card temperatura">

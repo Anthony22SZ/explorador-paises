@@ -153,3 +153,9 @@
     grid-column: span 1;
   }
 }
+
+.boton-navegacion {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}

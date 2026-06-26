@@ -2,11 +2,12 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { BotonAccionComponent } from '../boton-accion/boton-accion';
 
 @Component({
   selector: 'app-detalle-pais',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, BotonAccionComponent],
   templateUrl: './detalle-pais.html',
   styleUrl: './detalle-pais.css'
 })
