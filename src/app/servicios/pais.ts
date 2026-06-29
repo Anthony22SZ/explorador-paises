@@ -10,10 +10,11 @@ export class Pais {
   
   // URL base apuntando al subdominio correcto
   private apiUrl = 'https://api.restcountries.com/countries/v5'; 
-  private apiKey = 'rc_live_1c867e746b884d31a9bd2f0e4c35f551';
+  private apiKey = 'rc_live_d7f8799690234439ae77cc01bf99ad91';
 
   buscarPaisPorNombre(nombre: string): Observable<any> {
-    // 👈 Enviamos la llave concatenada directamente en la URL para evitar las peticiones OPTIONS (Preflight)
-    return this.http.get<any>(`${this.apiUrl}?q=${nombre}&key=${this.apiKey}`);
-  }
+    return this.http.get<any>(
+        `${this.apiUrl}?q=${nombre}&key=${this.apiKey}&response_fields=names.translations.spa,flag,region,codes`
+    );
+}
 }

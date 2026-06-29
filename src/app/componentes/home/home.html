@@ -1,12 +1,18 @@
 <div class="contenedor-principal">
   
   <header class="barra-busqueda">
-    <input 
-      type="text" 
-      placeholder="Escribe el nombre de un país..." 
-      (input)="alBuscar($event)"
-      class="input-buscar"
-    />
+    <div class="input-wrapper">
+      <svg class="icono-lupa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input 
+        type="text" 
+        placeholder="Escribe el nombre de un país (ej. Honduras, Brasil)..." 
+        (input)="alBuscar($event)"
+        class="input-buscar"
+      />
+    </div>
   </header>
 
   <main class="contenido-paises">
@@ -17,7 +23,9 @@
       </app-listas-paises>
     } @else {
       <div class="mensaje-bienvenida">
-        <p>Escribe el nombre de un país para comenzar la búsqueda...</p>
+        <span class="icono-tierra">🌍</span>
+        <h2>Explora el Mundo</h2>
+        <p>Escribe el nombre de un país arriba para comenzar la búsqueda y descubrir sus detalles.</p>
       </div>
     }
   </main>
@@ -26,23 +34,15 @@
     <footer class="footer-fijo">
       <div class="footer-encabezado">
         <div class="info-pais">
-          
-          @if (paisSeleccionado().flag?.emoji) {
-            <span class="mini-bandera-emoji" style="font-size: 2rem; margin-right: 12px; line-height: 1;">
-              {{ paisSeleccionado().flag?.emoji }}
-            </span>
-          } @else {
-            <span class="mini-bandera-emoji" style="font-size: 2rem; margin-right: 12px; line-height: 1;">🏳️</span>
-          }
-
-          <h3>
-            {{ paisSeleccionado().nombre }}
-          </h3>
+          <span class="mini-bandera-emoji">
+            {{ paisSeleccionado().flag?.emoji || '🏳️' }}
+          </span>
+          <h3>{{ paisSeleccionado().nombre }}</h3>
         </div>
         
         <div class="botones-accion">
-          <a class="btn btn-clima" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'clima']">Clima</a>
-          <a class="btn btn-detalles" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'detalle']">Detalle</a>
+          <a class="btn btn-clima" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'clima']">🌤️ Clima</a>
+          <a class="btn btn-detalles" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'detalle']">📄 Detalle</a>
         </div>
       </div>
 

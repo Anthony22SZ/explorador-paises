@@ -34,7 +34,7 @@ export class DetallePaisComponent implements OnInit {
   cargarDetalleDelPais() {
     this.cargando.set(true);
     this.error.set(null);
-    const url = `https://api.restcountries.com/countries/v5?codes.alpha_2=${this.nombre()}&key=rc_live_1c867e746b884d31a9bd2f0e4c35f551`;
+    const url = `https://api.restcountries.com/countries/v5?codes.alpha_2=${this.nombre()}&key=rc_live_d7f8799690234439ae77cc01bf99ad91`;
     this.http.get<any>(url).subscribe({
       next: (respuesta) => {
         if (respuesta?.data?.objects?.length > 0) {
