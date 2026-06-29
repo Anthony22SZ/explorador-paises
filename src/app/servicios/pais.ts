@@ -17,4 +17,10 @@ export class Pais {
         `${this.apiUrl}?q=${nombre}&key=${this.apiKey}&response_fields=names.translations.spa,flag,region,codes`
     );
 }
+
+buscarPorCodigo(codigo: string): Observable<any> {
+    return this.http.get<any>(
+        `${this.apiUrl}?codes.alpha_2=${codigo}&key=${this.apiKey}`
+    );
+}
 }

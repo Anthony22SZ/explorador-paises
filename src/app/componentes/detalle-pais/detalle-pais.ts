@@ -1,8 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BotonAccionComponent } from '../boton-accion/boton-accion';
+import { Pais } from '../../servicios/pais';
 
 @Component({
   selector: 'app-detalle-pais',
@@ -13,7 +13,7 @@ import { BotonAccionComponent } from '../boton-accion/boton-accion';
 })
 export class DetallePaisComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private http = inject(HttpClient);
+  private paisService = inject(Pais);
 
   nombre = signal<string>('');
   datosPais = signal<any>(null);
@@ -34,8 +34,8 @@ export class DetallePaisComponent implements OnInit {
   cargarDetalleDelPais() {
     this.cargando.set(true);
     this.error.set(null);
-    const url = `https://api.restcountries.com/countries/v5?codes.alpha_2=${this.nombre()}&key=rc_live_d7f8799690234439ae77cc01bf99ad91`;
-    this.http.get<any>(url).subscribe({
+
+    this.paisService.buscarPorCodigo(this.nombre()).subscribe({
       next: (respuesta) => {
         if (respuesta?.data?.objects?.length > 0) {
           this.datosPais.set(respuesta.data.objects[0]);

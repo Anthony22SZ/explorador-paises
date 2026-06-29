@@ -1,9 +1,9 @@
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { ClimaService } from '../../servicios/clima';
 import { BotonAccionComponent } from '../boton-accion/boton-accion';
+import { Pais } from '../../servicios/pais';
 
 @Component({
   selector: 'app-clima-pais',
@@ -14,7 +14,7 @@ import { BotonAccionComponent } from '../boton-accion/boton-accion';
 })
 export class ClimaPaisComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private http = inject(HttpClient);
+  private paisService = inject(Pais);
   private climaService = inject(ClimaService);
 
   nombre = signal<string>('');
@@ -35,9 +35,7 @@ export class ClimaPaisComponent implements OnInit {
   }
 
   cargarDatos() {
-    const urlPais = `https://api.restcountries.com/countries/v5?codes.alpha_2=${this.nombre()}&key=rc_live_d7f8799690234439ae77cc01bf99ad91`;
-
-    this.http.get<any>(urlPais).subscribe({
+    this.paisService.buscarPorCodigo(this.nombre()).subscribe({
       next: (res) => {
         if (res?.data?.objects?.length > 0) {
           const pais = res.data.objects[0];
