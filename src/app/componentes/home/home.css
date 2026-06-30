@@ -96,11 +96,12 @@
 
 /* FOOTER */
 .footer-fijo {
-  background: #1e293b;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 15px 20px;
-  /* Si quieres que flote como en mi ejemplo, puedes añadir:
-  position: sticky; bottom: 0; */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999; /* 👈 Esto obliga a toda la barra inferior a estar al frente */
+  /* Tu resto de estilos... */
 }
 
 .footer-encabezado {
@@ -122,9 +123,10 @@
   font-size: 1.2rem;
 }
 
-.botones-accion {
-  display: flex;
-  gap: 10px;
+.botones-accion button {
+  position: relative;
+  z-index: 1000; /* 👈 Esto asegura que los botones estén listos para recibir el puntero */
+  cursor: pointer;
 }
 
 .btn {

@@ -1,30 +1,32 @@
-import { Component, signal, OnInit, OnDestroy, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { ListasPaisesComponent } from '../listas-paises/listas-paises';
+import { ModalPaisComponent } from '../modal-pais/modal-pais';
+import { Pais } from '../../servicios/pais';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
-import { Pais } from '../../servicios/pais';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, ListasPaisesComponent],
+  imports: [ListasPaisesComponent, ModalPaisComponent],
   templateUrl: './home.html',
-  styleUrls: ['./home.css']
+  styleUrl: './home.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  paisesEncontrados = signal<any[]>([]);
-  paisSeleccionado = signal<any | null>(null);
-
+  private paisService = inject(Pais);
   private busqueda$ = new Subject<string>();
   private subBusqueda?: Subscription;
-  private paisService = inject(Pais);
+
+  paisesEncontrados = signal<any[]>([]);
+  paisSeleccionado = signal<any>(null);
+  modalVisible = signal<boolean>(false);
+  tipoModal = signal<'detalle' | 'clima' | null>(null);
 
   ngOnInit() {
     this.subBusqueda = this.busqueda$.pipe(
-      debounceTime(350),
+      debounceTime(600),
       distinctUntilChanged(),
-      filter(termino => termino.length > 0)
+      filter(termino => termino.length >= 3)
     ).subscribe(termino => {
       this.ejecutarPeticion(termino);
     });
@@ -36,22 +38,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   alBuscar(event: any) {
     const termino = event.target.value?.trim() || '';
-
     if (termino === '') {
       this.paisesEncontrados.set([]);
       this.paisSeleccionado.set(null);
       this.busqueda$.next('');
       return;
     }
-
     this.busqueda$.next(termino);
   }
 
   private ejecutarPeticion(termino: string) {
     this.paisService.buscarPaisPorNombre(termino).subscribe({
       next: (res) => {
-        if (res && res.data && res.data.objects && res.data.objects.length > 0) {
-
+        if (res?.data?.objects) {
           const normalizar = (texto: string) =>
             texto.toLowerCase()
                  .normalize('NFD')
@@ -65,11 +64,12 @@ export class HomeComponent implements OnInit, OnDestroy {
               return nombreEspanol.includes(terminoNormalizado);
             })
             .map((pais: any) => ({
-              nombre: pais.names?.translations?.spa?.common || 'País sin nombre',
-              nombreOficial: pais.names?.translations?.spa?.official || 'Sin nombre oficial',
+              nombre: pais.names?.translations?.spa?.common || 'Sin nombre',
+              nombreOficial: pais.names?.translations?.spa?.official || '',
               region: pais.region,
               flag: pais.flag,
-              codes: pais.codes
+              codes: pais.codes,
+              coordinates: pais.coordinates
             }));
 
           this.paisesEncontrados.set(paisesLimpios);
@@ -77,14 +77,30 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.paisesEncontrados.set([]);
         }
       },
-      error: (err) => {
+      error: () => {
         this.paisesEncontrados.set([]);
-        console.error('Error al buscar país:', err);
       }
     });
   }
 
   seleccionarPais(pais: any) {
     this.paisSeleccionado.set(pais);
+  }
+
+  abrirDetalle(pais: any) {
+    this.paisSeleccionado.set(pais);
+    this.tipoModal.set('detalle');
+    this.modalVisible.set(true);
+  }
+
+  abrirClima(pais: any) {
+    this.paisSeleccionado.set(pais);
+    this.tipoModal.set('clima');
+    this.modalVisible.set(true);
+  }
+
+  cerrarModal() {
+    this.modalVisible.set(false);
+    this.tipoModal.set(null);
   }
 }

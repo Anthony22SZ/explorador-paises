@@ -1,19 +1,24 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AccionesPaisComponent } from '../acciones-pais/acciones-pais';
+import { Component, input, output } from '@angular/core';
+import { AccionesPaisComponent } from '../acciones-pais/acciones-pais'; // Asegura la importación
 
 @Component({
   selector: 'app-listas-paises',
   standalone: true,
-  imports: [CommonModule, AccionesPaisComponent],
-  templateUrl: './listas-paises.html',
-  styleUrl: './listas-paises.css',
+  imports: [AccionesPaisComponent], // 👈 Asegúrate de que esté aquí
+  templateUrl: './listas-paises.html'
 })
 export class ListasPaisesComponent {
-  @Input() paises: any[] = [];
-  @Output() alSeleccionarPais = new EventEmitter<any>();
+  paises = input<any[]>([]);
 
-  seleccionar(pais: any) {
-    this.alSeleccionarPais.emit(pais);
+  // 🚀 Eventos que van hacia el Home
+  alVerDetalle = output<any>();
+  alVerClima = output<any>();
+
+  verDetalle(pais: any) {
+    this.alVerDetalle.emit(pais); // Lo eleva al Home
+  }
+
+  verClima(pais: any) {
+    this.alVerClima.emit(pais); // Lo eleva al Home
   }
 }

@@ -8,7 +8,7 @@
       </svg>
       <input 
         type="text" 
-        placeholder="Escribe el nombre de un país (ej. Honduras, Brasil)..." 
+        placeholder="Escribe el nombre de un país..." 
         (input)="alBuscar($event)"
         class="input-buscar"
       />
@@ -19,36 +19,22 @@
     @if (paisesEncontrados().length > 0) {
       <app-listas-paises 
         [paises]="paisesEncontrados()"
-        (alSeleccionarPais)="seleccionarPais($event)">
+        (alVerDetalle)="abrirDetalle($event)" 
+        (alVerClima)="abrirClima($event)">
       </app-listas-paises>
     } @else {
       <div class="mensaje-bienvenida">
-        <span class="icono-tierra">🌍</span>
-        <h2>Explora el Mundo</h2>
-        <p>Escribe el nombre de un país arriba para comenzar la búsqueda y descubrir sus detalles.</p>
+        <p>Escribe el nombre de un país para comenzar la búsqueda...</p>
       </div>
     }
   </main>
 
-  @if (paisSeleccionado()) {
-    <footer class="footer-fijo">
-      <div class="footer-encabezado">
-        <div class="info-pais">
-          <span class="mini-bandera-emoji">
-            {{ paisSeleccionado().flag?.emoji || '🏳️' }}
-          </span>
-          <h3>{{ paisSeleccionado().nombre }}</h3>
-        </div>
-        
-        <div class="botones-accion">
-          <a class="btn btn-clima" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'clima']">🌤️ Clima</a>
-          <a class="btn btn-detalles" [routerLink]="['/pais', paisSeleccionado().codes?.alpha_2, 'detalle']">📄 Detalle</a>
-        </div>
-      </div>
-
-      <div class="footer-cuerpo">
-        <router-outlet></router-outlet>
-      </div>
-    </footer>
+  @if (modalVisible()) {
+    <app-modal-pais
+      [pais]="paisSeleccionado()"
+      [tipo]="tipoModal()"
+      (cerrar)="cerrarModal()">
+    </app-modal-pais>
   }
+
 </div>

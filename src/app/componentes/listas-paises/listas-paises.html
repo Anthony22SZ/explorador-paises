@@ -1,5 +1,5 @@
 <div class="lista-paises-contenedor">
-  @for (pais of paises; track (pais.codes?.alpha_2 || pais.nombre)) {
+  @for (pais of paises(); track (pais.codes?.alpha_2 || pais.nombre)) {
     
     <div class="fila-pais" style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
       
@@ -20,7 +20,11 @@
         </span>
       </div>
 
-      <app-acciones-pais [pais]="pais"></app-acciones-pais>
+      <app-acciones-pais 
+        [pais]="pais"
+        (clickDetalle)="verDetalle($event)"
+        (clickClima)="verClima($event)">
+      </app-acciones-pais>
 
     </div>
 

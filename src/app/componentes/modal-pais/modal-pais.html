@@ -1,0 +1,14 @@
+<div class="modal-overlay" (click)="onCerrar()">
+  <div class="modal-contenido" (click)="$event.stopPropagation()">
+
+    <button class="btn-cerrar" (click)="onCerrar()">✕</button>
+@if (tipo() === 'detalle') {
+  <app-detalle-pais [pais]="pais()" [enModal]="true"></app-detalle-pais>
+}
+
+@if (tipo() === 'clima') {
+  <app-clima-pais [pais]="pais()" [enModal]="true"></app-clima-pais>
+}
+
+  </div>
+</div>

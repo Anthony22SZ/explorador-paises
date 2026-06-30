@@ -1,9 +1,10 @@
-import { Component, signal, OnInit, inject } from '@angular/core';
+import { Component, signal, OnInit, inject, input } from '@angular/core'; // 👈 Importamos 'input'
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ClimaService } from '../../servicios/clima';
-import { BotonAccionComponent } from '../boton-accion/boton-accion';
+
 import { Pais } from '../../servicios/pais';
+import { BotonAccionComponent } from '../boton-accion/boton-accion';
 
 @Component({
   selector: 'app-clima-pais',
@@ -17,20 +18,33 @@ export class ClimaPaisComponent implements OnInit {
   private paisService = inject(Pais);
   private climaService = inject(ClimaService);
 
+  // 1. NUEVO: Declaramos el input para que el modal le inyecte el país
+  pais = input<any>(null);
+
   nombre = signal<string>('');
   datosPais = signal<any>(null);
   datosClima = signal<any>(null);
   cargando = signal<boolean>(true);
   error = signal<string | null>(null);
+  enModal = input<boolean>(false);
 
   ngOnInit() {
-    const codigoPais = this.route.snapshot.paramMap.get('nombre');
-    if (codigoPais) {
-      this.nombre.set(codigoPais);
+    // 2. MODIFICADO: Si los datos vienen desde el modal (Input)
+    if (this.pais()) {
+      const codigo = this.pais().codes?.alpha_2|| this.pais().nombre;
+      this.nombre.set(codigo);
       this.cargarDatos();
-    } else {
-      this.error.set('No se especificó un país.');
-      this.cargando.set(false);
+    } 
+    // 3. RESPALDO: Si entra de forma independiente por URL (Ruta)
+    else {
+      const codigoPais = this.route.snapshot.paramMap.get('nombre');
+      if (codigoPais) {
+        this.nombre.set(codigoPais);
+        this.cargarDatos();
+      } else {
+        this.error.set('No se especificó un país.');
+        this.cargando.set(false);
+      }
     }
   }
 
